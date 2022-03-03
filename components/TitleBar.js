@@ -24,10 +24,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         
     },
-    navBar: {
-
-    },
-
 });
 
 export default TitleBar;
