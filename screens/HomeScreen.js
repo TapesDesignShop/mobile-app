@@ -1,14 +1,14 @@
 import React from "react";
 import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
-import { MaterialIcons } from '@expo/vector-icons';
-import { FontAwesome } from '@expo/vector-icons';
+import { MaterialIcons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
         <ImageBackground
-          source={require("../assets/banner.jpeg")}
+          source={require("../assets/banner.png")}
           resizeMode="cover"
           style={styles.banner}
         >
@@ -22,11 +22,11 @@ const HomeScreen = ({ navigation }) => {
                 <View style={styles.button}><Button title='Contact' onPress={() => navigation.navigate('Contact')} /></View>
             </View> */}
       <View style={styles.iconContainer}>
-          <View style={styles.icon}>
+        <View style={styles.icon}>
           <MaterialIcons name="email" size={35} color="white" />
           <FontAwesome name="map-marker" size={35} color="white" />
           <FontAwesome name="phone" size={35} color="white" />
-      </View>
+        </View>
       </View>
       <View style={styles.bottomContainer}></View>
     </View>
@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#e8e7e6",
   },
   topContainer: {
-    height: "40%",
+    height: "37.5%",
     width: "100%",
   },
   buttonContainer: {
@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     margin: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    justifyContent: "space-around",
     width: 400,
   },
   bottomContainer: {
