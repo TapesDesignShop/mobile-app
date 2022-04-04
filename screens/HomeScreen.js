@@ -1,11 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
+import { StyleSheet, Text, View, ImageBackground, Image, Dimensions } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialIcons } from "@expo/vector-icons";
-import { FontAwesome } from "@expo/vector-icons";
-import { Ionicons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
+import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
-import { Colors } from '../constant/Colors';
+import { Colors } from "../constant/Colors";
+import NavigationBar from "../components/NavigationBar";
+import Footer from "../components/Footer";
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -16,36 +18,62 @@ const HomeScreen = ({ navigation }) => {
           resizeMode="cover"
           style={styles.banner}
         >
+          <View style={styles.headerBackdrop}>
           <Image style={styles.logo} source={require("../assets/logo.png")} />
+          </View>
         </ImageBackground>
       </View>
-      <View style={styles.iconContainer}>
-        <View style={styles.icon}>
-          <MaterialIcons name="email" size={35} color={Colors.honeydew} />
-          <FontAwesome name="map-marker" size={35} color={Colors.honeydew} />
-          <FontAwesome name="phone" size={35} color={Colors.honeydew} />
-        </View>
-      </View>
+      <NavigationBar toggle={() => navigation.toggleDrawer()}/>
       <View style={styles.contentContainer}>
-        <Text style={{fontSize: 22, fontWeight: 'bold', color: Colors.sunglow, marginBottom: 20}}>Stationary and Arts in Edinburgh</Text>
-        <Text style={{color: '#1f271b'}}>Tapes Design Shop, Room B21 in Edinburgh is the top source for high-quality stationery supplies for Edinburgh Napier University, Merchiston Campus, students, staff.& the general public.  Our shop carries a huge array of Stationery and Art & Design. Additionally, we provide students quick access to printing and binding services.</Text>
+        <Text
+          style={{
+            fontFamily: "mont-extra-bold",
+            fontSize: 20,
+            color: Colors.sunglow,
+            marginBottom: 20,
+          }}
+        >
+          Stationary and Arts in Edinburgh
+        </Text>
+        <Text style={{ color: "grey", textAlign: "center", fontFamily: "roboto-regular" }}>
+          Tapes Design Shop, Room B21 in Edinburgh is the top source for
+          high-quality stationery supplies for Edinburgh Napier University,
+          Merchiston Campus, students, staff & the general public. Our shop
+          carries a huge array of Stationery and Art & Design. Additionally, we
+          provide students quick access to printing and binding services.
+        </Text>
       </View>
-      <View style={styles.navContainer}>
+      <LinearGradient colors={["white", Colors.paradisePink]} style={styles.navContainer}>
         <View style={styles.navigation}>
-        <Ionicons name="information-circle-outline" size={60} color={Colors.blueViolet} onPress={() => navigation.navigate('AboutUs')} />
-        <AntDesign name="shoppingcart" size={60} color={Colors.blueViolet} onPress={() => navigation.navigate('Shop')} />
+          <Ionicons
+            name="information-circle-outline"
+            size={Dimensions.get("window").height > 700 ? 60 : 50}
+            color={Colors.blueViolet}
+            onPress={() => navigation.navigate("AboutUs")}
+          />
+          <AntDesign
+            name="shoppingcart"
+            size={Dimensions.get("window").height > 700 ? 60 : 50}
+            color={Colors.blueViolet}
+            onPress={() => navigation.navigate("Shop")}
+          />
         </View>
         <View style={styles.navigation}>
-        <MaterialIcons name="design-services" size={60} color={Colors.blueViolet} onPress={() => navigation.navigate('Services')} />
-        <AntDesign name="contacts" size={60} color={Colors.blueViolet} onPress={() => navigation.navigate('Contact')} />
+          <MaterialIcons
+            name="design-services"
+            size={Dimensions.get("window").height > 700 ? 60 : 50}
+            color={Colors.blueViolet}
+            onPress={() => navigation.navigate("Services")}
+          />
+          <AntDesign
+            name="contacts"
+            size={Dimensions.get("window").height > 700 ? 60 : 50}
+            color={Colors.blueViolet}
+            onPress={() => navigation.navigate("Contact")}
+          />
         </View>
-      </View>
-      <View style={styles.bottomContainer}>
-        <View style={styles.socialHandler}>
-      <AntDesign name="instagram" size={24} color={Colors.honeydew} />
-      <AntDesign name="facebook-square" size={24} color={Colors.honeydew} />
-      </View>
-      </View>
+      </LinearGradient>
+      <Footer />
     </View>
   );
 };
@@ -55,7 +83,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    backgroundColor: "#e8e7e6",
+  },
+  headerBackdrop: {
+    backgroundColor: Colors.honeydew,
+    width: "100%",
+    height: "30%",
+    opacity: 0.75,
+    justifyContent: "center",
+    alignItems: "center",
   },
   topContainer: {
     height: "37.5%",
@@ -76,55 +111,30 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logo: {
-    resizeMode: "center",
-  },
-  iconContainer: {
-    flexDirection: "row",
-    height: "6.5%",
-    width: "100%",
-    backgroundColor: Colors.paradisePink,
-    justifyContent: "center",
-    alignItems: "center",
-    top: 0,
-  },
-  icon: {
-    margin: 10,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    width: 400,
-  },
-  bottomContainer: {
-    flexDirection: 'row',
-    height: "5%",
-    width: "100%",
-    position: "absolute",
-    bottom: 0,
-    backgroundColor: Colors.paradisePink,
-    justifyContent: 'center',
-    alignItems: 'center',
+    height: 100,
+    width: 200,
+    opacity: 1
   },
   contentContainer: {
     padding: 10,
-    width: '100%',
-    height: '30%',
-    backgroundColor: 'white',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  navContainer: {
+    width: "100%",
+    height: "30%",
+    backgroundColor: "white",
+    justifyContent: "center",
+    alignItems: "center",
   },
   navigation: {
-    flexDirection: 'row',
+    flexDirection: "row",
     justifyContent: "space-between",
     width: 200,
-    height: 60,
     margin: 10,
   },
-  socialHandler:{
-    flexDirection: 'row',
-    justifyContent: "space-around",
-    width: 150,
-  },
+  navContainer: {
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "19.97%"
+  }
 });
 
 export default HomeScreen;
