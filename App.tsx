@@ -56,20 +56,26 @@ const fetchFonts = () => {
     "mont-extra-bold": require("./assets/fonts/Montserrat/Montserrat-ExtraBold.ttf"),
     "mont-light": require("./assets/fonts/Montserrat/Montserrat-Light.ttf"),
     "mont-thin": require("./assets/fonts/Montserrat/Montserrat-Thin.ttf"),
-  })
+  });
 };
 
 function AppStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name="HomeScreen"
         component={HomeScreen}
         options={{
           headerShown: false,
         }}
       />
-      <Stack.Screen name="AboutUs" component={AboutUs} />
+      <Stack.Screen
+        name="AboutUs"
+        component={AboutUs}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen name="Shop" component={Shop} />
       <Stack.Screen name="Services" component={Services} />
       <Stack.Screen name="Contact" component={Contact} />
