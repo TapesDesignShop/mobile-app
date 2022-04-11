@@ -58,6 +58,7 @@ const AboutUs = ({ navigation }) => {
 export default AboutUs;
 
 const styles = StyleSheet.create({
+  
   container: {
     flex: 1,
     backgroundColor: "#fff",
@@ -84,6 +85,7 @@ const styles = StyleSheet.create({
     width: "85%",
     borderRadius: 10,
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    opacity: 0.8
   },
 });
