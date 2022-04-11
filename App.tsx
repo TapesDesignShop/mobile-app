@@ -77,7 +77,13 @@ function AppStack() {
         }}
       />
       <Stack.Screen name="Shop" component={Shop} />
-      <Stack.Screen name="Services" component={Services} />
+      <Stack.Screen
+        name="Services"
+        component={Services}
+        options={{
+          headerShown: false,
+        }}
+      />
       <Stack.Screen name="Contact" component={Contact} />
 
       <Stack.Screen name="A3Wallets" component={A3Wallets} />
