@@ -10,6 +10,10 @@ import {
 } from "@react-navigation/drawer";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
+import { Feather } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import HomeScreen from "./screens/HomeScreen";
 import AboutUs from "./screens/AboutUs";
@@ -33,6 +37,8 @@ import Sketchpads from "./screens/shop/Sketchpads";
 import Stationary from "./screens/shop/Stationary";
 import TechnicalDrawing from "./screens/shop/TechnicalDrawing";
 import USBFlash from "./screens/shop/USBFlash";
+import CustomDrawer from "./components/CustomDrawer";
+import { Colors } from "./constant/Colors";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -106,55 +112,75 @@ function AppStack() {
   );
 }
 
-function DrawerContent(props, { navigation }) {
-  return (
-    <DrawerContentScrollView>
-      <DrawerItemList {...props} />
-      <DrawerItem
-        label="Home"
-        onPress={() => {
-          props.navigation.navigate("HomeScreen");
-        }}
-      />
-      <DrawerItem
-        label="About Us"
-        onPress={() => {
-          props.navigation.navigate("AboutUs");
-        }}
-      />
-      <DrawerItem
-        label="Shop"
-        onPress={() => {
-          props.navigation.navigate("Shop");
-        }}
-      />
-      <DrawerItem
-        label="Services"
-        onPress={() => {
-          props.navigation.navigate("Services");
-        }}
-      />
-      <DrawerItem
-        label="Contact"
-        onPress={() => {
-          props.navigation.navigate("Contact");
-        }}
-      />
-    </DrawerContentScrollView>
-  );
-}
-
 function Navigation() {
   return (
     <NavigationContainer>
       <Drawer.Navigator
-        drawerContent={(props) => <DrawerContent {...props} />}
-        screenOptions={{ headerShown: false }}
+        drawerContent={(props) => <CustomDrawer {...props} />}
+        screenOptions={{
+          headerShown: false,
+          drawerLabelStyle: { fontFamily: "roboto-bold" },
+          drawerActiveBackgroundColor: "#aa18ea",
+          drawerActiveTintColor: '#fff'
+        }}
       >
         <Drawer.Screen
           name="AppStack"
           component={AppStack}
           options={{ drawerItemStyle: { height: 0 } }}
+        />
+        <Drawer.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Feather name="home" size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="About Us"
+          component={AboutUs}
+          options={{
+            drawerIcon: ({ color }) => (
+              <AntDesign name="infocirlceo" size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Shop"
+          component={Shop}
+          options={{
+            drawerIcon: ({ color }) => (
+              <MaterialCommunityIcons
+                name="shopping-outline"
+                size={22}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Services"
+          component={Services}
+          options={{
+            drawerIcon: ({ color }) => (
+              <MaterialIcons
+                name="miscellaneous-services"
+                size={22}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Contact"
+          component={Contact}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Feather name="phone-call" size={22} color={color} />
+            ),
+          }}
         />
       </Drawer.Navigator>
     </NavigationContainer>
