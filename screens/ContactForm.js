@@ -9,74 +9,10 @@ import { Colors } from "../constant/Colors";
 import NavigationBar from "../components/NavigationBar";
 import Footer from "../components/Footer";
 
-const Contact = ({ navigation }) => {
+const ContactForm = ({ navigation }) => {
   const { width: screenWidth } = Dimensions.get("window");
 
-  const ITEMS = [
-    {
-      title: "Address",
-      text: "Edinburgh Napier University Room B21, \n10 Colinton Road, EH10 5DT",
-      img: require("../assets/map1.jpg")
-    },
-    {
-      title: "Contact",
-      text: "0131 455 2202 \n07879 417319 \ndesignshopnapier@gmail.com",
-      img: require("../assets/contact.jpg")
-    },
-    {
-      title: "Opening hours",
-      text: "Mon - Thu 10:00 am - 3:00 pm \nFri - Sun - Closed",
-      img: require("../assets/hours.jpg")
-    },
-  ];
-
-  const [entries, setEntries] = useState([]);
-  const carouselRef = useRef(null);
-
-  const goForward = () => {
-    carouselRef.current.snapToNext();
-  };
-
-  useEffect(() => {
-    setEntries(ITEMS);
-  }, []);
-
-  
-
-  const renderItem = ({ item, index }) => {
-    return (
-      <View style={styles.serviceContainer}>
-        <View style={styles.serviceImg}>
-          <Image
-            style={{ height: "100%", width: "100%", resizeMode: "cover", borderRadius: 20}}
-            source={item.img}
-          />
-        </View>
-        <View style={styles.serviceItem}>
-          <Text
-            style={{
-              fontFamily: "mont-extra-bold",
-              fontSize: 16,
-              color: Colors.honeydew,
-              textAlign: "center",
-              opacity: 100,
-            }}
-          >
-            {item.title}
-          </Text>
-          <Text
-            style={{
-              fontFamily: "roboto-regular",
-              textAlign: "center",
-              color: "white",
-            }}
-          >
-            {item.text}
-          </Text>
-        </View>
-      </View>
-    );
-  };
+ 
   
   
 
@@ -94,7 +30,7 @@ const Contact = ({ navigation }) => {
             textAlign: "center",
           }}
         >
-          Stationery shop in Edinburgh
+          Contact Form
         </Text>
         <Text
           style={{
@@ -103,22 +39,14 @@ const Contact = ({ navigation }) => {
             fontFamily: "roboto-regular",
           }}
         >
-          For a stationery shop offering a great selection at competitive prices in Edinburgh, visit Tapes Design Shop at Edinburgh Napier University, Merchiston Campus and browse our range. Staff,  students and the general public can benefit from our excellent range at great value for money. We also offer high-quality printing and binding services for your dissertation or thesis. Drop in today and see our selection, place an order online for collection, or ask our team if you have any questions about our stock or printing services.
+         
         </Text>
       </View>
       <LinearGradient
         colors={["white", Colors.paradisePink]}
         style={styles.bottomContainer}
       >
-        <Carousel
-          layout={"default"}
-          ref={carouselRef}
-          sliderWidth={screenWidth}
-          sliderHeight={screenWidth}
-          itemWidth={screenWidth - 60}
-          data={entries}
-          renderItem={renderItem}
-        />
+        
       </LinearGradient>
       <Footer />
     </View>
@@ -174,4 +102,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Contact;
+export default ContactForm;

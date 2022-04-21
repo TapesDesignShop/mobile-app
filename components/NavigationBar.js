@@ -14,6 +14,7 @@ const NavigationBar = (props) => {
         <MaterialIcons name="email" size={Dimensions.get("window").height > 700 ? 35 : 30} color={Colors.honeydew} />
         <FontAwesome name="map-marker" size={Dimensions.get("window").height > 700 ? 35 : 30} color={Colors.honeydew} />
         <FontAwesome name="phone" size={Dimensions.get("window").height > 700 ? 35 : 30} color={Colors.honeydew} />
+        
       </View>
     </View>
   );
