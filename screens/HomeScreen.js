@@ -1,6 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, View, ImageBackground, Image, Dimensions } from "react-native";
-import { LinearGradient } from 'expo-linear-gradient';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
@@ -19,11 +27,11 @@ const HomeScreen = ({ navigation }) => {
           style={styles.banner}
         >
           <View style={styles.headerBackdrop}>
-          <Image style={styles.logo} source={require("../assets/logo.png")} />
+            <Image style={styles.logo} source={require("../assets/logo.png")} />
           </View>
         </ImageBackground>
       </View>
-      <NavigationBar toggle={() => navigation.toggleDrawer()}/>
+      <NavigationBar toggle={() => navigation.toggleDrawer()} />
       <View style={styles.contentContainer}>
         <Text
           style={{
@@ -31,11 +39,18 @@ const HomeScreen = ({ navigation }) => {
             fontSize: 20,
             color: Colors.sunglow,
             marginBottom: 20,
+            textAlign: "center",
           }}
         >
-          Stationary and Arts in Edinburgh
+          STATIONARY AND ARTS IN EDINBURGH
         </Text>
-        <Text style={{ color: "grey", textAlign: "center", fontFamily: "roboto-regular" }}>
+        <Text
+          style={{
+            color: "grey",
+            textAlign: "center",
+            fontFamily: "roboto-regular",
+          }}
+        >
           Tapes Design Shop, Room B21 in Edinburgh is the top source for
           high-quality stationery supplies for Edinburgh Napier University,
           Merchiston Campus, students, staff & the general public. Our shop
@@ -43,36 +58,45 @@ const HomeScreen = ({ navigation }) => {
           provide students quick access to printing and binding services.
         </Text>
       </View>
-      <LinearGradient colors={["white", Colors.paradisePink]} style={styles.navContainer}>
+      <LinearGradient
+        colors={["white", Colors.paradisePink]}
+        style={styles.navContainer}
+      >
         <View style={styles.navigation}>
+        <TouchableOpacity style={styles.button}>
           <Ionicons
             name="information-circle-outline"
-            size={Dimensions.get("window").height > 700 ? 60 : 50}
-            color={Colors.blueViolet}
+            size={Dimensions.get("window").height > 700 ? 60 : 40}
+            color={Colors.honeydew}
             onPress={() => navigation.navigate("AboutUs")}
           />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
           <AntDesign
             name="shoppingcart"
-            size={Dimensions.get("window").height > 700 ? 60 : 50}
-            color={Colors.blueViolet}
+            size={Dimensions.get("window").height > 700 ? 60 : 40}
+            color={Colors.honeydew}
             onPress={() => navigation.navigate("Shop")}
           />
+          </TouchableOpacity>
         </View>
         <View style={styles.navigation}>
-          <MaterialIcons
-            name="design-services"
-            size={Dimensions.get("window").height > 700 ? 60 : 50}
-            color={Colors.blueViolet}
-            onPress={() => navigation.navigate("Services")}
-          />
-          <AntDesign
-            name="contacts"
-            size={Dimensions.get("window").height > 700 ? 60 : 50}
-            color={Colors.blueViolet}
-            onPress={() => navigation.navigate("Contact")}
-          />
-         
-          
+          <TouchableOpacity style={styles.button}>
+            <MaterialIcons
+              name="design-services"
+              size={Dimensions.get("window").height > 700 ? 60 : 40}
+              color={Colors.honeydew}
+              onPress={() => navigation.navigate("Services")}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button}>
+            <AntDesign
+              name="contacts"
+              size={Dimensions.get("window").height > 700 ? 60 : 40}
+              color={Colors.honeydew}
+              onPress={() => navigation.navigate("Contact")}
+            />
+          </TouchableOpacity>
         </View>
       </LinearGradient>
       <Footer />
@@ -115,7 +139,7 @@ const styles = StyleSheet.create({
   logo: {
     height: 100,
     width: 200,
-    opacity: 1
+    opacity: 1,
   },
   contentContainer: {
     padding: 10,
@@ -135,8 +159,24 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    height: "19.97%"
-  }
+    height: "23%",
+    bottom: Dimensions.get("window").height > 700 ? 20 : 18,
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: "white",
+    backgroundColor: Colors.blueViolet,
+    width: Dimensions.get("window").height > 700 ? 80 : 60,
+    height: Dimensions.get("window").height > 700 ? 80 : 60,
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    elevation: 5,
+  },
 });
 
 export default HomeScreen;

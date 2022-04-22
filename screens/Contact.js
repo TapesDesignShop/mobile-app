@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Carousel from "react-native-snap-carousel";
@@ -24,15 +25,46 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 
 const Contact = ({ navigation }) => {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [phone, setPhone] = useState();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [message, setMessage] = useState(false);
 
-  const [borderColor, setBorderColor] = useState("grey");
+  const [nameBorder, setNameBorder] = useState("grey");
+  const [emailBorder, setEmailBorder] = useState("grey");
+  const [phoneBorder, setPhoneBorder] = useState("grey");
+  const [messageBorder, setMessageBorder] = useState("grey");
   const [error, setError] = useState(false);
 
-  function onClick() {}
+  function onClick() {
+    setError(false);
+
+    setNameBorder("green");
+    setEmailBorder("green");
+    setPhoneBorder("green");
+    setMessageBorder("green");
+
+    if (!name || name.trim().length === 0) {
+      setError(true);
+      setNameBorder("red");
+    }
+
+    if (!email.includes("@") && !email.includes(".")) {
+      setError(true);
+      setEmailBorder("red");
+    }
+
+    if (!phone || phone.trim().length === 0) {
+      setError(true);
+      setPhoneBorder("red");
+    }
+
+    if (!message || message.trim().length === 0) {
+      setError(true);
+      setMessageBorder("red");
+    }
+
+  }
 
   const { width: screenWidth } = Dimensions.get("window");
 
@@ -119,7 +151,7 @@ const Contact = ({ navigation }) => {
             textAlign: "center",
           }}
         >
-          Stationery shop in Edinburgh
+          STATIONARY SHOP IN EDINBURGH
         </Text>
         <Text
           style={{
@@ -153,17 +185,17 @@ const Contact = ({ navigation }) => {
             renderItem={renderItem}
           />
 
-          <View style={styles.contactFormContainer}>
+          <View style={{bottom: 10}}>
             <Text
               style={{
                 fontFamily: "mont-extra-bold",
                 fontSize: 18,
-                color: Colors.sunglow,
+                color: Colors.blueViolet,
                 marginBottom: 5,
                 textAlign: "center",
               }}
             >
-              Send us a message
+              SEND US A MESSAGE
             </Text>
           </View>
 
@@ -172,38 +204,31 @@ const Contact = ({ navigation }) => {
           </View>
           <View style={{ flexDirection: "row" }}>
             <View
-              style={{ ...styles.inputContainer, borderColor: borderColor }}
+              style={{ ...styles.inputContainer, borderColor: nameBorder }}
             >
-              <View style={{ flexDirection: "row", width: 250 }}>
+              <View style={{ flexDirection: "row", width: "75%" }}>
                 <TextInput
-                  value={name}
+                  //value={name}
                   style={styles.input}
                   onChangeText={(newText) => setName(newText)}
                 />
-                <View style={{ marginRight: 5, top: 15 }}>
+                <View style={{ marginRight: 5, top: 15, }}>
                   <Ionicons name="person-outline" size={24} color="grey" />
                 </View>
               </View>
             </View>
-            {error ? (
-              <View style={{ justifyContent: "center", left: 10 }}>
-                <Ionicons name="person-outline" size={24} color={borderColor} />
-              </View>
-            ) : (
-              <View></View>
-            )}
           </View>
-      
+
           <View style={styles.labelContainer}>
             <Text style={styles.labelText}>Email</Text>
           </View>
           <View style={{ flexDirection: "row" }}>
             <View
-              style={{ ...styles.inputContainer, borderColor: borderColor }}
+              style={{ ...styles.inputContainer, borderColor: emailBorder }}
             >
-              <View style={{ flexDirection: "row", width: 250 }}>
+              <View style={{ flexDirection: "row", width: "75%" }}>
                 <TextInput
-                  value={email}
+                  //value={email}
                   style={styles.input}
                   onChangeText={(newText) => setEmail(newText)}
                 />
@@ -216,17 +241,6 @@ const Contact = ({ navigation }) => {
                 </View>
               </View>
             </View>
-            {error ? (
-              <View style={{ justifyContent: "center", left: 10 }}>
-                <MaterialIcons
-                  name="error-outline"
-                  size={24}
-                  color={borderColor}
-                />
-              </View>
-            ) : (
-              <View></View>
-            )}
           </View>
 
           <View style={styles.labelContainer}>
@@ -234,11 +248,11 @@ const Contact = ({ navigation }) => {
           </View>
           <View style={{ flexDirection: "row" }}>
             <View
-              style={{ ...styles.inputContainer, borderColor: borderColor }}
+              style={{ ...styles.inputContainer, borderColor: phoneBorder }}
             >
-              <View style={{ flexDirection: "row", width: 250 }}>
+              <View style={{ flexDirection: "row", width: "75%" }}>
                 <TextInput
-                  value={phone}
+                  //value={phone}
                   style={styles.input}
                   onChangeText={(newText) => setPhone(newText)}
                 />
@@ -247,13 +261,6 @@ const Contact = ({ navigation }) => {
                 </View>
               </View>
             </View>
-            {error ? (
-              <View style={{ justifyContent: "center", left: 10 }}>
-                <AntDesign name="phone" size={24} color={borderColor} />
-              </View>
-            ) : (
-              <View></View>
-            )}
           </View>
 
           <View style={styles.labelContainer}>
@@ -263,27 +270,36 @@ const Contact = ({ navigation }) => {
             <View
               style={{
                 ...styles.inputContainer,
-                borderColor: borderColor,
+                borderColor: messageBorder,
                 height: 200,
                 width: "75%",
               }}
             >
-              <View style={{ flexDirection: "row", width: "90%", height: "90%"}}>
+              <View
+                style={{ flexDirection: "row", width: "90%", height: "90%" }}
+              >
                 <TextInput
-                  value={message}
-                  style={{ height: "100%", width: "95%", textAlignVertical: 'top'}}
+                  //value={message}
+                  style={{
+                    height: "100%",
+                    width: "95%",
+                    textAlignVertical: "top",
+                  }}
                   onChangeText={(newText) => setMessage(newText)}
                   multiline
                 />
               </View>
             </View>
-            {error ? (
-              <View style={{ justifyContent: "center", left: 10 }}>
-                <Feather name="message-square" size={24} color={borderColor} />
-              </View>
-            ) : (
-              <View></View>
-            )}
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              color={Colors.primary}
+              onPress={() => onClick()}
+            >
+              <Text style={styles.submitText}>SUBMIT</Text>
+            </TouchableOpacity>
           </View>
         </LinearGradient>
       </ScrollView>
@@ -336,11 +352,12 @@ const styles = StyleSheet.create({
   },
   labelContainer: {
     alignSelf: "flex-start",
-    left: 90,
+    left: 50,
   },
   labelText: {
     fontSize: 15,
-    fontFamily: "roboto-regular",
+    fontFamily: "roboto-bold",
+    color: Colors.blueViolet
   },
   inputContainer: {
     flexDirection: "row",
@@ -354,10 +371,36 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   input: {
-    right: 0,
+    right: 35,
     height: 40,
     margin: 10,
-    width: "80%",
+    width: "90%",
+  },
+  submitText: {
+    fontSize: 20,
+    color: "white",
+    fontFamily: "roboto-bold",
+  },
+  buttonContainer: {
+    paddingTop: 25,
+    paddingBottom: 25,
+    marginLeft: "auto",
+    right: "12.5%",
+  },
+  button: {
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: "white",
+    backgroundColor: Colors.blueViolet,
+    width: 150,
+    height: 50,
+    shadowColor: "black",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 1,
+    shadowRadius: 1,
+    elevation: 5,
   },
 });
 
