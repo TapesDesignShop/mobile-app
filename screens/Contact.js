@@ -7,6 +7,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
+  Linking
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Carousel from "react-native-snap-carousel";
@@ -64,6 +65,11 @@ const Contact = ({ navigation }) => {
       setMessageBorder("red");
     }
 
+    if(!error){
+      const description = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`
+      const subject = `Tapes Design Shop App Enquiry from ${name}`
+      Linking.openURL(`mailto:suparnodeb@hotmail.co.uk?subject=${subject}&body=${description}`);
+    }
   }
 
   const { width: screenWidth } = Dimensions.get("window");
