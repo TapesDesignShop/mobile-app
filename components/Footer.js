@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Linking, View } from "react-native";
 import React from "react";
 import { AntDesign } from '@expo/vector-icons';
 
@@ -8,8 +8,8 @@ const Footer = () => {
   return (
     <View style={styles.bottomContainer}>
       <View style={styles.socialHandler}>
-        <AntDesign name="instagram" size={24} color={Colors.honeydew} />
-        <AntDesign name="facebook-square" size={24} color={Colors.honeydew} />
+        <AntDesign name="instagram" size={24} color={Colors.honeydew} onPress={() => Linking.openURL('https://www.instagram.com/tapesdesignshop/')}/>
+        <AntDesign name="facebook-square" size={24} color={Colors.honeydew} onPress={() => Linking.openURL('fb://page/1084452548235299')}/>
       </View>
     </View>
   );
