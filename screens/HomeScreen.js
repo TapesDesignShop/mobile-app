@@ -71,6 +71,8 @@ const HomeScreen = ({ navigation }) => {
             color={Colors.blueViolet}
             onPress={() => navigation.navigate("Contact")}
           />
+         
+          
         </View>
       </LinearGradient>
       <Footer />

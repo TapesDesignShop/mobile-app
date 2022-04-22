@@ -20,6 +20,7 @@ import AboutUs from "./screens/AboutUs";
 import Shop from "./screens/Shop";
 import Services from "./screens/Services";
 import Contact from "./screens/Contact";
+import ContactForm from "./screens/ContactForm";
 
 import A3Wallets from "./screens/shop/A3Wallets";
 import A4Folder from "./screens/shop/A4Folder";
@@ -39,6 +40,7 @@ import TechnicalDrawing from "./screens/shop/TechnicalDrawing";
 import USBFlash from "./screens/shop/USBFlash";
 import CustomDrawer from "./components/CustomDrawer";
 import { Colors } from "./constant/Colors";
+
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -179,6 +181,15 @@ function Navigation() {
           options={{
             drawerIcon: ({ color }) => (
               <Feather name="phone-call" size={22} color={color} />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="Message Us"
+          component={ContactForm}
+          options={{
+            drawerIcon: ({ color }) => (
+              <Feather name="mail" size={22} color={color} />
             ),
           }}
         />
