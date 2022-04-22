@@ -7,7 +7,7 @@ import {
   ScrollView,
   TextInput,
   TouchableOpacity,
-  Linking
+  Linking,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Carousel from "react-native-snap-carousel";
@@ -35,9 +35,9 @@ const Contact = ({ navigation }) => {
   const [emailBorder, setEmailBorder] = useState("grey");
   const [phoneBorder, setPhoneBorder] = useState("grey");
   const [messageBorder, setMessageBorder] = useState("grey");
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(true);
 
-  function onClick() {
+  const onClick = () => {
     setError(false);
 
     setNameBorder("green");
@@ -48,45 +48,54 @@ const Contact = ({ navigation }) => {
     if (!name || name.trim().length === 0) {
       setError(true);
       setNameBorder("red");
-    }
+    } else setError(false);
 
     if (!email.includes("@") && !email.includes(".")) {
       setError(true);
       setEmailBorder("red");
-    }
+    } else setError(false);
 
     if (!phone || phone.trim().length === 0) {
       setError(true);
       setPhoneBorder("red");
-    }
+    } else setError(false);
 
     if (!message || message.trim().length === 0) {
       setError(true);
       setMessageBorder("red");
-    }
+    } else setError(false);
 
-    if(!error){
-      const description = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`
-      const subject = `Tapes Design Shop App Enquiry from ${name}`
-      Linking.openURL(`mailto:suparnodeb@hotmail.co.uk?subject=${subject}&body=${description}`);
+    if (!error) {
+      const description = `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`;
+      const subject = `Tapes Design Shop App Enquiry from ${name}`;
+      Linking.openURL(
+        `mailto:designshopnapier@gmail.com?subject=${subject}&body=${description}`
+      );
     }
-  }
+  };
 
   const { width: screenWidth } = Dimensions.get("window");
 
+  function openMaps(latitude, longitude) {
+    const daddr = `${latitude},${longitude}`;
+    const company = Platform.OS === "ios" ? "apple" : "google";
+    Linking.openURL(`http://maps.${company}.com/maps?daddr=${daddr}`);
+  }
+
   const ITEMS = [
     {
-      title: "Address",
+      title: "ADDRESS",
       text: "Edinburgh Napier University Room B21, \n10 Colinton Road, EH10 5DT",
+      click: () => openMaps(55.933046, -3.214593),
       img: require("../assets/map1.jpg"),
     },
     {
-      title: "Contact",
+      title: "CONTACT",
       text: "0131 455 2202 \n07879 417319 \ndesignshopnapier@gmail.com",
       img: require("../assets/contact.jpg"),
     },
     {
-      title: "Opening hours",
+      title: "OPENING HOURS",
       text: "Mon - Thu 10:00 am - 3:00 pm \nFri - Sun - Closed",
       img: require("../assets/hours.jpg"),
     },
@@ -106,7 +115,7 @@ const Contact = ({ navigation }) => {
   const renderItem = ({ item, index }) => {
     return (
       <View style={styles.serviceContainer}>
-        <View style={styles.serviceImg}>
+        <TouchableOpacity style={styles.serviceImg} onPress={item.click}>
           <Image
             style={{
               height: "100%",
@@ -116,7 +125,7 @@ const Contact = ({ navigation }) => {
             }}
             source={item.img}
           />
-        </View>
+        </TouchableOpacity>
         <View style={styles.serviceItem}>
           <Text
             style={{
@@ -191,7 +200,7 @@ const Contact = ({ navigation }) => {
             renderItem={renderItem}
           />
 
-          <View style={{bottom: 10}}>
+          <View style={{ bottom: 10 }}>
             <Text
               style={{
                 fontFamily: "mont-extra-bold",
@@ -209,16 +218,14 @@ const Contact = ({ navigation }) => {
             <Text style={styles.labelText}>Name</Text>
           </View>
           <View style={{ flexDirection: "row" }}>
-            <View
-              style={{ ...styles.inputContainer, borderColor: nameBorder }}
-            >
+            <View style={{ ...styles.inputContainer, borderColor: nameBorder }}>
               <View style={{ flexDirection: "row", width: "75%" }}>
                 <TextInput
                   //value={name}
                   style={styles.input}
                   onChangeText={(newText) => setName(newText)}
                 />
-                <View style={{ marginRight: 5, top: 15, }}>
+                <View style={{ marginRight: 5, top: 15 }}>
                   <Ionicons name="person-outline" size={24} color="grey" />
                 </View>
               </View>
@@ -363,7 +370,7 @@ const styles = StyleSheet.create({
   labelText: {
     fontSize: 15,
     fontFamily: "roboto-bold",
-    color: Colors.blueViolet
+    color: Colors.blueViolet,
   },
   inputContainer: {
     flexDirection: "row",
