@@ -1,6 +1,8 @@
 import "react-native-gesture-handler";
-import React, { useState } from "react";
-import { Linking } from "react-native";
+import * as Notifications from "expo-notifications";
+import Constants from 'expo-constants';
+import React, { useState, useEffect, useRef } from 'react';
+import { Linking, Platform } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
@@ -24,7 +26,6 @@ import Contact from "./screens/Contact";
 
 import CustomDrawer from "./components/CustomDrawer";
 import { Colors } from "./constant/Colors";
-
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -52,7 +53,7 @@ const fetchFonts = () => {
 };
 
 function OpenShop() {
-  Linking.openURL('https://www.stationeryshopedinburgh.co.uk/shop/')
+  Linking.openURL("https://www.stationeryshopedinburgh.co.uk/shop/");
 }
 
 function AppStack() {
@@ -80,7 +81,11 @@ function AppStack() {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="Contact" component={Contact} options={{headerShown: false}}/>
+      <Stack.Screen
+        name="Contact"
+        component={Contact}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }
@@ -94,7 +99,7 @@ function Navigation() {
           headerShown: false,
           drawerLabelStyle: { fontFamily: "roboto-bold" },
           drawerActiveBackgroundColor: "#aa18ea",
-          drawerActiveTintColor: '#fff'
+          drawerActiveTintColor: "#fff",
         }}
       >
         <Drawer.Screen
@@ -160,7 +165,79 @@ function Navigation() {
   );
 }
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
+
+async function schedulePushNotification() {
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "You've got mail! 📬",
+      body: 'Here is the notification body',
+      data: { data: 'goes here' },
+    },
+    trigger: { seconds: 2 },
+  });
+}
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Constants.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Failed to get push token for push notification!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log(token);
+  } else {
+    alert('Must use physical device for Push Notifications');
+  }
+
+  if (Platform.OS === 'android') {
+    Notifications.setNotificationChannelAsync('default', {
+      name: 'default',
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
+
+  return token;
+}
+
 export default function App() {
+  const [expoPushToken, setExpoPushToken] = useState('');
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    registerForPushNotificationsAsync().then(token => setExpoPushToken(token));
+
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      console.log(response);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
+  
   const [fontLoaded, setFontLoaded] = useState(false);
 
   if (!fontLoaded) {
