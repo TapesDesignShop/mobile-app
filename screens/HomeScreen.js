@@ -7,6 +7,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  StatusBar
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -20,6 +21,7 @@ import Footer from "../components/Footer";
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
+      <StatusBar translucent backgroundColor="transparent"/>
       <View style={styles.topContainer}>
         <ImageBackground
           source={require("../assets/banner.png")}
