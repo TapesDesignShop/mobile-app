@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   Linking,
+  StatusBar,
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Carousel from "react-native-snap-carousel";
@@ -154,6 +155,7 @@ const Contact = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar translucent backgroundColor="transparent" />
       <Header />
       <NavigationBar toggle={() => navigation.toggleDrawer()} />
       <ScrollView style={styles.contentContainer}>

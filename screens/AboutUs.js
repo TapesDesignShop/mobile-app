@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Dimensions, StatusBar } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import React from "react";
 
@@ -10,6 +10,7 @@ import Footer from "../components/Footer";
 const AboutUs = ({ navigation }) => {
   return (
     <View style={styles.container}>
+      <StatusBar translucent backgroundColor="transparent"/>
       <Header />
       <NavigationBar toggle={() => navigation.toggleDrawer()} />
       <View style={styles.contentContainer}>

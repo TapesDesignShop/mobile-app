@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions, Image } from "react-native";
+import { StyleSheet, Text, View, Dimensions, Image, StatusBar } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import Carousel from "react-native-snap-carousel";
 import React, { useState, useEffect, useRef } from "react";
@@ -72,6 +72,7 @@ const Services = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar translucent backgroundColor="transparent"/>
       <Header />
       <NavigationBar toggle={() => navigation.toggleDrawer()} />
       <View style={styles.contentContainer}>
