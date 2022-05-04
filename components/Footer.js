@@ -9,7 +9,7 @@ const Footer = () => {
     <View style={styles.bottomContainer}>
       <View style={styles.socialHandler}>
         <AntDesign name="instagram" size={24} color={Colors.honeydew} onPress={() => Linking.openURL('https://www.instagram.com/tapesdesignshop/')}/>
-        <AntDesign name="facebook-square" size={24} color={Colors.honeydew} onPress={() => Linking.openURL('fb://page/1084452548235299')}/>
+        <AntDesign name="facebook-square" size={24} color={Colors.honeydew} onPress={() => Linking.openURL('fb://page/352209691542360')}/>
       </View>
     </View>
   );
